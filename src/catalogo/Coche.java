@@ -11,6 +11,7 @@ public class Coche {
     private Integer stock;
     private String modelo;
     private Integer fabricacion;
+    private ArrayList<Mejora> mejoras;
 
 
     /**
@@ -27,6 +28,7 @@ public class Coche {
         this.stock = obtenerStock(stock);
         this.fabricacion = fabricacion;
         this.id = generarId();
+        this.mejoras = new ArrayList<>();
     }
 
     /**
@@ -52,4 +54,25 @@ public class Coche {
         return stock;
     }
 
+    /**
+     * Añade una mejora al coche.
+     *
+     * @param mejora Mejora a añadir.
+     */
+    public void addMejora(Mejora mejora) {
+        this.mejoras.add(mejora);
+    }
+
+    /**
+     * Obtiene el precio final del coche añadiendo el precio de las mejoras.
+     *
+     * @return El identificador del coche.
+     */
+    public Float obtenerPrecioFinal() {
+        Float precioFinal = this.precio_base;
+        for (Mejora mejora : this.mejoras) {
+            precioFinal += precioFinal * mejora.getPorcentajeIncremento();
+        }
+        return precioFinal;
+    }
 }
